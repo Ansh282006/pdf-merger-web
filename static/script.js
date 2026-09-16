@@ -4,8 +4,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileList = document.getElementById('fileList');
     const form = document.getElementById('uploadForm');
     const mergeBtn = document.getElementById('mergeBtn');
-    const btnText = mergeBtn.querySelector('.btn-text');
+    const btnText = document.getElementById('btnText');
     const btnSpinner = mergeBtn.querySelector('.btn-spinner');
+    const toolSelect = document.getElementById('toolSelect');
+    const dropzoneText = document.getElementById('dropzoneText');
+    const dropzoneSubtext = document.getElementById('dropzoneSubtext');
+
+    let selectedFiles = [];
+
+    // --- Tool Switching Logic ---
+    toolSelect.addEventListener('change', (e) => {
+        const tool = e.target.value;
+        selectedFiles = []; // Reset files when tool changes
+        fileInput.value = ''; // Clear native input
+        renderFileList();
+
+        if (tool === 'merge') {
+            form.action = '/merge';
+            fileInput.accept = '.pdf';
+            fileInput.multiple = true;
+            dropzoneText.textContent = 'Drag & drop PDF files here';
+            dropzoneSubtext.textContent = 'Supports multiple PDF files';
+            btnText.textContent = 'Merge PDFs';
+        } else if (tool === 'compress') {
+            form.action = '/compress';
+            fileInput.accept = '.pdf';
+            fileInput.multiple = false;
+            dropzoneText.textContent = 'Drag & drop a PDF file here';
+            dropzoneSubtext.textContent = 'Supports single PDF file';
+            btnText.textContent = 'Compress PDF';
+        } else if (tool === 'pdf-to-image') {
+            form.action = '/pdf-to-image';
+            fileInput.accept = '.pdf';
+            fileInput.multiple = false;
+            dropzoneText.textContent = 'Drag & drop a PDF file here';
+            dropzoneSubtext.textContent = 'Supports single PDF file';
+            btnText.textContent = 'Convert to Images (ZIP)';
+        } else if (tool === 'image-to-pdf') {
+            form.action = '/image-to-pdf';
+            fileInput.accept = 'image/*';
+            fileInput.multiple = true;
+            dropzoneText.textContent = 'Drag & drop image files here';
+            dropzoneSubtext.textContent = 'Supports multiple images (PNG, JPG)';
+            btnText.textContent = 'Convert to PDF';
+        }
+    });
 
     // --- Drag & Drop Events ---
     ['dragenter', 'dragover'].forEach(eventName => {
@@ -32,16 +75,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- File Handling ---
-    let selectedFiles = [];
-
     function handleFiles(files) {
-        const pdfFiles = Array.from(files).filter(f => f.type === 'application/pdf');
-        if (pdfFiles.length === 0) {
-            alert('Please select PDF files only.');
+        const isImageMode = fileInput.accept.includes('image');
+        const allowedType = isImageMode ? 'image/' : 'application/pdf';
+        
+        const validFiles = Array.from(files).filter(f => f.type.startsWith(allowedType));
+        
+        if (validFiles.length === 0) {
+            alert(`Please select valid ${isImageMode ? 'image' : 'PDF'} files only.`);
             return;
         }
-        selectedFiles = pdfFiles;
+
+        // Append to selectedFiles, or overwrite if multiple isn't allowed
+        if (fileInput.multiple) {
+            selectedFiles = selectedFiles.concat(validFiles);
+        } else {
+            selectedFiles = [validFiles[0]];
+        }
+
+        updateFileInput(); // CRITICAL FIX: Sync JS array with HTML input
         renderFileList();
+    }
+
+    // CRITICAL FIX: Updates the native HTML file input with the JS file array
+    function updateFileInput() {
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => dataTransfer.items.add(file));
+        fileInput.files = dataTransfer.files;
     }
 
     function renderFileList() {
@@ -61,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', (e) => {
                 const idx = parseInt(e.target.dataset.index);
                 selectedFiles.splice(idx, 1);
+                updateFileInput(); // Sync again
                 renderFileList();
             });
         });
@@ -70,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         if (selectedFiles.length === 0) {
             e.preventDefault();
-            alert('Please add at least one PDF file.');
+            alert('Please add at least one file.');
             return;
         }
 

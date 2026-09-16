@@ -316,3 +316,20 @@ body {
     .btn-merge { font-size: 1rem; padding: 12px 20px; }
     .broadside-marquee__track { font-size: 0.75rem; }
 }
+
+/* Tool Select Dropdown */
+.tool-select {
+    background-color: #f8f9fa;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    color: var(--dark-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tool-select:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+}
