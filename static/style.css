@@ -1,20 +1,50 @@
-/* Simple, clean styles relying on Bootstrap */
+/* Simple, clean styles with smooth animations */
 body {
-    background-color: #f8f9fa;
+    background: linear-gradient(-45deg, #f8f9fa, #fff5f5, #f8f9fa, #ffeaea);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Card Hover Lift */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Tool Select Dropdown */
+.tool-select {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-select:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
 }
 
 /* Custom Dropzone Styling */
 .dropzone {
     position: relative;
     border: 2px dashed #dee2e6 !important;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .dropzone:hover, .dropzone.dragover {
     border-color: #e74c3c !important;
     background-color: #fff5f5 !important;
+    transform: scale(1.02);
 }
 
 /* Invisible file input that covers the dropzone */
@@ -35,6 +65,12 @@ body {
     padding: 8px 12px;
     border-radius: 6px;
     margin-bottom: 6px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .remove-file {
@@ -43,13 +79,26 @@ body {
     color: #e74c3c;
     font-weight: bold;
     cursor: pointer;
-}
-
-/* Simple card hover */
-.card {
     transition: transform 0.2s ease;
 }
 
-.card:hover {
+.remove-file:hover {
+    transform: scale(1.2);
+}
+
+/* 3D Push Button Effect */
+.btn-merge {
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 #c0392b, 0 8px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-merge:hover {
     transform: translateY(-2px);
+    box-shadow: 0 6px 0 #c0392b, 0 12px 20px rgba(231, 76, 60, 0.4);
+    color: white;
+}
+
+.btn-merge:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #c0392b, 0 4px 10px rgba(231, 76, 60, 0.3);
 }
