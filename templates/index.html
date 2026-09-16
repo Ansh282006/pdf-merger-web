@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merger</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .upload-box { border: 3px dashed #6a11cb; border-radius: 20px; padding: 50px; text-align: center; background: white; transition: 0.3s; }
+        .upload-box:hover { background: #f9f9ff; border-color: #2575fc; }
+        h1 { color: #2c3e50; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">📄 PDF Merger</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="upload-box shadow">
+                    <form action="/merge" method="POST" enctype="multipart/form-data">
+                        <h4 class="mb-4">Select PDF files to merge</h4>
+                        <input type="file" name="pdf_files" class="form-control mb-4" multiple accept=".pdf" required>
+                        <button type="submit" class="btn btn-primary btn-lg px-5">Merge PDFs</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
