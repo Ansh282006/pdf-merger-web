@@ -1,0 +1,318 @@
+/* ============================================
+   PDF Merger – iLovePDF Inspired Bright Theme
+   ============================================ */
+
+/* --- CSS Variables --- */
+:root {
+    --primary-red: #e74c3c;
+    --primary-red-dark: #c0392b;
+    --primary-orange: #f39c12;
+    --primary-green: #27ae60;
+    --bright-bg: #f8f9fa;
+    --white: #ffffff;
+    --dark-text: #2c3e50;
+    --muted-text: #6c757d;
+    --border-light: #e9ecef;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 16px 40px rgba(0,0,0,0.10);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bright-bg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--dark-text);
+    overflow-x: hidden;
+}
+
+/* ============================================
+   Animated Marquee Banner (Uiverse.io pattern)
+   ============================================ */
+.broadside-marquee {
+    --color-ink: #2c3e50;
+    --color-on-ink: #ffffff;
+    --color-signal: #e74c3c;
+    --color-acid: #f39c12;
+    --rule: 2px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+    border-top: var(--rule) solid var(--color-on-ink);
+    border-bottom: var(--rule) solid var(--color-on-ink);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.875rem;
+}
+
+.broadside-marquee__track {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    white-space: nowrap;
+    animation: broadside-marquee-slide 22s linear infinite;
+    will-change: transform;
+}
+
+.broadside-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 2rem;
+}
+
+.broadside-marquee__sep {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+.broadside-marquee__punch {
+    color: var(--color-acid);
+}
+
+@keyframes broadside-marquee-slide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .broadside-marquee__track { animation: none; }
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero-section {
+    background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease both;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--muted-text);
+    animation: fadeInUp 0.8s ease 0.15s both;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Tool Card (3D Tilt + Hover)
+   ============================================ */
+.tool-card {
+    border: none;
+    border-radius: 20px;
+    background: var(--white);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.tool-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   Dropzone (File Upload)
+   ============================================ */
+.dropzone {
+    position: relative;
+    border: 3px dashed var(--border-light);
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    background: #fafafa;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+    border-color: var(--primary-red);
+    background: #fff5f5;
+}
+
+.file-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.upload-icon {
+    transition: transform 0.3s ease;
+}
+
+.dropzone:hover .upload-icon {
+    transform: translateY(-4px) scale(1.1);
+}
+
+.dropzone-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-text);
+    margin: 0;
+}
+
+.dropzone-subtext {
+    font-size: 0.95rem;
+    color: var(--muted-text);
+    margin: 0.25rem 0;
+}
+
+.browse-link {
+    color: var(--primary-red);
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ============================================
+   File List
+   ============================================ */
+.file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f3f5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    animation: fadeInUp 0.3s ease both;
+}
+
+.file-item .remove-file {
+    background: none;
+    border: none;
+    color: var(--primary-red);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* ============================================
+   3D Push Button (Merge PDFs)
+   ============================================ */
+.btn-merge {
+    background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 14px 24px;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 0 #a93226, 0 10px 20px rgba(231, 76, 60, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-merge:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #a93226, 0 14px 24px rgba(231, 76, 60, 0.4);
+}
+
+.btn-merge:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #a93226, 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   Features Section
+   ============================================ */
+.features-section {
+    background: var(--white);
+}
+
+.feature-card {
+    background: var(--bright-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #fff;
+    margin: 0 auto;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+    background: var(--dark-text);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+    .hero-title { font-size: 1.8rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .dropzone { padding: 30px 15px; }
+    .btn-merge { font-size: 1rem; padding: 12px 20px; }
+    .broadside-marquee__track { font-size: 0.75rem; }
+}
